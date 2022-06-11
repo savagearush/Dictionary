@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Dictionary 📑</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="container mx-auto bottom-0 text-center" id="container">
+      <form name="dictionary" id="dictionary-form">
+        <h1 class="text-6xl font-bold text-center">Dictionary</h1>
+        <input
+          type="text"
+          maxlength="20"
+          class="w-7/12 mt-12 text-lg text-white h-12 bg-transparent bg-gray-700 rounded-full px-4 hover:border-none"
+          placeholder="Type Word Here ........."
+          name="search"
+          required
+        />
+        <div>
+          <input
+            type="submit"
+            id="searchBtn"
+            class="mt-6 px-10 py-4 border-green rounded-3xl text-xl bg-green-700"
+          />
+        </div>
+      </form>
+      <ul id="gifs-container" class="container text-center mx-auto mt-12"></ul>
+      <div
+        class="container my-4 text-left p-4 rounded-2xl"
+        id="resultContainer"
+      >
+        <h1 class="text-2xl text-center">
+          Results will be display down Below :
+        </h1>
+        <div id="result-word" class="my-6"></div>
+        <div>
+          <div id="result-phonetics" class="my-6"></div>
+        </div>
+        <div>
+          <div id="result-meanings" class="my-6"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/JavaScript" src="main.js"></script>
+  </body>
+</html>
