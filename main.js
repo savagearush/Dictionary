@@ -4,9 +4,10 @@ const resultContainer = document.getElementById("resultContainer");
 const resultWord = document.getElementById("result-word");
 const resultPhonetic = document.getElementById("result-phonetics");
 const resultMeaning = document.getElementById("result-meanings");
+const gifsContainer = document.getElementById("gifs-container");
 
-async function getGifs() {
-  const URL = `https://api.giphy.com/v1/gifs/search?q=dictionary&api_key=YbKEnqFNfazW5T2dJyuWVLDfKFp4rh2F&limit=6&rating=g`;
+async function getGifs(queryWord = "Words") {
+  const URL = `https://api.giphy.com/v1/gifs/search?q=${queryWord}&api_key=YbKEnqFNfazW5T2dJyuWVLDfKFp4rh2F&limit=6&rating=g`;
   const response = await fetch(URL);
   const { data } = await response.json();
   renderGifs(data);
@@ -34,10 +35,12 @@ form.onsubmit = async (e) => {
   resultMeaning.innerHTML = "";
   resultPhonetic.innerHTML = "";
   resultWord.innerHTML = "";
+  gifsContainer.innerHTML = "";
 
   const formData = new FormData(e.target);
   const keyword = formData.get("search");
   const data = await getMeaning(keyword);
+  getGifs(keyword);
   renderResult(data[0]);
 };
 

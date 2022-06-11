@@ -22,7 +22,6 @@ body {
 }
 
 #gifs-container {
-  position: relative;
   display: flex;
+  padding-left: 2em;
 }
-
