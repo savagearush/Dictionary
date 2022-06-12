@@ -39,10 +39,9 @@ form.onsubmit = async (e) => {
 
   const formData = new FormData(e.target);
   const keyword = formData.get("search");
-  getGifs(keyword);
-
   try {
     const data = await getMeaning(keyword);
+    getGifs(keyword);
     renderResult(data[0]);
   } catch (err) {
     alert("Word not Found !! 😔");
@@ -68,11 +67,11 @@ const renderResult = (data) => {
   resultWord.appendChild(wordHeadingEle);
 
   let phoneticEle = document.createElement("div");
-  let phoneticHeadingEle = document.createElement("h1");
-  phoneticHeadingEle.innerText = "Phonetics : ";
-  phoneticHeadingEle.setAttribute("class", "text-2xl");
+  // let phoneticHeadingEle = document.createElement("h1");
+  // phoneticHeadingEle.innerText = "Phonetics : ";
+  // phoneticHeadingEle.setAttribute("class", "text-2xl");
+  // phoneticEle.appendChild(phoneticHeadingEle);
 
-  phoneticEle.appendChild(phoneticHeadingEle);
   let phoneticTextEle = document.createElement("h2");
   phoneticTextEle.innerHTML = text;
   phoneticTextEle.setAttribute("class", "text-4xl");
@@ -84,24 +83,15 @@ const renderResult = (data) => {
   sourceEle.setAttribute("src", audio);
   phoneticAudioEle.controls = true;
   phoneticAudioEle.setAttribute("class", "my-4");
-
   phoneticAudioEle.appendChild(sourceEle);
   phoneticEle.appendChild(phoneticAudioEle);
+
   resultPhonetic.appendChild(phoneticEle);
 
   // Render Meaning
 
-  let meaningTextTag = document.createElement("h2");
-  meaningTextTag.innerHTML = "Meanings: ";
-  meaningTextTag.setAttribute("class", "text-2xl my-2 text-green-200");
-  resultMeaning.appendChild(meaningTextTag);
-
   let partOfSpeechTag = document.createElement("div");
-  let partOfSpeechTextTag = document.createElement("h2");
-  partOfSpeechTextTag.innerHTML = "Part of Speech : ";
-  partOfSpeechTextTag.setAttribute("class", "text-2xl text-green-200");
   partOfSpeechTag.setAttribute("class", "my-4");
-  partOfSpeechTag.appendChild(partOfSpeechTextTag);
 
   meanings.forEach((item, count) => {
     //For Each Meaning render Results
