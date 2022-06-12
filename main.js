@@ -39,9 +39,10 @@ form.onsubmit = async (e) => {
 
   const formData = new FormData(e.target);
   const keyword = formData.get("search");
+  getGifs(keyword);
+
   try {
     const data = await getMeaning(keyword);
-    getGifs(keyword);
     renderResult(data[0]);
   } catch (err) {
     alert("Word not Found !! 😔");
@@ -54,11 +55,8 @@ const getMeaning = async (query) => {
   return response.json();
 };
 
-const renderError = (err) => {
-  toastr.info("Hello");
-};
-
 const renderResult = (data) => {
+  console.log(data);
   let { word, meanings, phonetics } = data;
   const { text, audio } = phonetics[phonetics.length - 1];
 
@@ -66,7 +64,7 @@ const renderResult = (data) => {
   let wordHeadingEle = document.createElement("h1");
   word[0] = word[0].toUpperCase();
   wordHeadingEle.innerText = word;
-  wordHeadingEle.setAttribute("class", "text-6xl");
+  wordHeadingEle.setAttribute("class", "text-6xl text-cyan-300");
   resultWord.appendChild(wordHeadingEle);
 
   let phoneticEle = document.createElement("div");
@@ -95,13 +93,13 @@ const renderResult = (data) => {
 
   let meaningTextTag = document.createElement("h2");
   meaningTextTag.innerHTML = "Meanings: ";
-  meaningTextTag.setAttribute("class", "text-2xl my-2");
+  meaningTextTag.setAttribute("class", "text-2xl my-2 text-green-200");
   resultMeaning.appendChild(meaningTextTag);
 
   let partOfSpeechTag = document.createElement("div");
   let partOfSpeechTextTag = document.createElement("h2");
   partOfSpeechTextTag.innerHTML = "Part of Speech : ";
-  partOfSpeechTextTag.setAttribute("class", "text-2xl");
+  partOfSpeechTextTag.setAttribute("class", "text-2xl text-green-200");
   partOfSpeechTag.setAttribute("class", "my-4");
   partOfSpeechTag.appendChild(partOfSpeechTextTag);
 
@@ -113,37 +111,34 @@ const renderResult = (data) => {
     const definitions = item.definitions;
     const synonyms = item.synonyms;
 
-    let definitionTextTag = document.createElement("h2");
-    definitionTextTag.innerHTML = "Definitions: ";
-    definitionTextTag.setAttribute("class", "my-4 text-2xl");
-
-    let partOfSpeechResutTag = document.createElement("h2");
-    partOfSpeechResutTag.innerHTML = `${count + 1}. ${partOfSpeech}`;
-    partOfSpeechResutTag.setAttribute("class", "text-2xl color-red");
-    partOfSpeechTag.appendChild(partOfSpeechResutTag);
+    let partOfSpeechResultTag = document.createElement("h2");
+    partOfSpeechResultTag.innerHTML = `${count + 1}. ${partOfSpeech}`;
+    partOfSpeechResultTag.setAttribute("class", "ml-4 text-2xl color-red");
+    partOfSpeechTag.appendChild(partOfSpeechResultTag);
 
     definitions.forEach((item) => {
       let defintionTag = document.createElement("h3");
-      defintionTag.setAttribute("class", "text-xl");
+      defintionTag.setAttribute("class", "text-xl ml-4 mt-3");
       defintionTag.innerHTML = `👉🏻 ${item.definition}`;
-
-      partOfSpeechTag.appendChild(definitionTextTag);
       partOfSpeechTag.appendChild(defintionTag);
     });
 
-    if (synonyms.length > 1) {
-      let synoEle = document.createElement("div");
-      let SysTextTag = document.createElement("h2");
-      SysTextTag.innerHTML = "Synonyms: ";
-      SysTextTag.setAttribute("class", "text-2xl");
+    resultMeaning.appendChild(partOfSpeechTag);
 
+    let synoEle = document.createElement("div");
+    let synTextTag = document.createElement("h2");
+    synTextTag.innerHTML = "Synonyms: ";
+    synTextTag.setAttribute("class", "text-2xl text-green-200");
+    synoEle.appendChild(synTextTag);
+
+    if (synonyms.length > 0) {
       synonyms.forEach((word) => {
         let sysWord = document.createElement("span");
         sysWord.innerHTML = word + ", ";
-        sysWord.setAttribute("class", "text-xl");
+        sysWord.setAttribute("class", "text-xl ml-4");
         synoEle.appendChild(sysWord);
       });
+      resultMeaning.appendChild(synoEle);
     }
   });
-  resultMeaning.appendChild(partOfSpeechTag);
 };
