@@ -22,7 +22,7 @@ const renderGifs = async (data) => {
     imageTag.setAttribute("src", image["url"]);
     imageTag.setAttribute("width", 200);
     imageTag.setAttribute("height", 200);
-    liTag.setAttribute("class", "px-4");
+    liTag.setAttribute("class", "px-3");
     liTag.appendChild(imageTag);
     container.append(liTag);
   });
@@ -39,15 +39,23 @@ form.onsubmit = async (e) => {
 
   const formData = new FormData(e.target);
   const keyword = formData.get("search");
-  const data = await getMeaning(keyword);
-  getGifs(keyword);
-  renderResult(data[0]);
+  try {
+    const data = await getMeaning(keyword);
+    getGifs(keyword);
+    renderResult(data[0]);
+  } catch (err) {
+    alert("Word not Found !! 😔");
+  }
 };
 
 const getMeaning = async (query) => {
   const DIC_API = `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`;
   const response = await fetch(DIC_API);
   return response.json();
+};
+
+const renderError = (err) => {
+  toastr.info("Hello");
 };
 
 const renderResult = (data) => {
