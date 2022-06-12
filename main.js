@@ -6,14 +6,14 @@ const resultPhonetic = document.getElementById("result-phonetics");
 const resultMeaning = document.getElementById("result-meanings");
 const gifsContainer = document.getElementById("gifs-container");
 
-async function getGifs(queryWord = "Words") {
+const getGifs = async (queryWord = "Words") => {
   const URL = `https://api.giphy.com/v1/gifs/search?q=${queryWord}&api_key=YbKEnqFNfazW5T2dJyuWVLDfKFp4rh2F&limit=6&rating=g`;
   const response = await fetch(URL);
   const { data } = await response.json();
   renderGifs(data);
-}
+};
 
-async function renderGifs(data) {
+const renderGifs = async (data) => {
   const container = document.getElementById("gifs-container");
   data.forEach(({ images: item }) => {
     const image = item["downsized"];
@@ -26,7 +26,7 @@ async function renderGifs(data) {
     liTag.appendChild(imageTag);
     container.append(liTag);
   });
-}
+};
 
 getGifs();
 
@@ -44,13 +44,13 @@ form.onsubmit = async (e) => {
   renderResult(data[0]);
 };
 
-async function getMeaning(query) {
+const getMeaning = async (query) => {
   const DIC_API = `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`;
   const response = await fetch(DIC_API);
   return response.json();
-}
+};
 
-function renderResult(data) {
+const renderResult = (data) => {
   let { word, meanings, phonetics } = data;
   const { text, audio } = phonetics[phonetics.length - 1];
 
@@ -138,4 +138,4 @@ function renderResult(data) {
     }
   });
   resultMeaning.appendChild(partOfSpeechTag);
-}
+};
