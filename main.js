@@ -22,6 +22,7 @@ const renderGifs = async (data) => {
     imageTag.setAttribute("src", image["url"]);
     imageTag.setAttribute("width", 200);
     imageTag.setAttribute("height", 200);
+    imageTag.setAttribute("class", "rounded-lg");
     liTag.setAttribute("class", "px-3");
     liTag.appendChild(imageTag);
     container.append(liTag);
