@@ -7,7 +7,7 @@ const resultMeaning = document.getElementById("result-meanings");
 const gifsContainer = document.getElementById("gifs-container");
 
 const getGifs = async (queryWord = "Words") => {
-  const URL = `https://api.giphy.com/v1/gifs/search?q=${queryWord}&api_key=YbKEnqFNfazW5T2dJyuWVLDfKFp4rh2F&limit=6&rating=g`;
+  const URL = `https://api.giphy.com/v1/gifs/search?q=${queryWord}&api_key=${API}&limit=6&rating=g`;
   const response = await fetch(URL);
   const { data } = await response.json();
   renderGifs(data);
@@ -20,8 +20,6 @@ const renderGifs = async (data) => {
     let liTag = document.createElement("li");
     let imageTag = document.createElement("img");
     imageTag.setAttribute("src", image["url"]);
-    imageTag.setAttribute("width", 200);
-    imageTag.setAttribute("height", 200);
     imageTag.setAttribute("class", "rounded-lg");
     liTag.setAttribute("class", "px-3");
     liTag.appendChild(imageTag);
@@ -95,7 +93,6 @@ const renderResult = (data) => {
 
   meanings.forEach((item, count) => {
     //For Each Meaning render Results
-    // Render PartOfSpeech First
 
     const partOfSpeech = item.partOfSpeech;
     const definitions = item.definitions;
