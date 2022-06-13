@@ -7,6 +7,9 @@ body {
   background-color: black;
   color: white;
 }
+#heading span {
+  margin: 0px -3px;
+}
 
 #container {
   position: relative;
@@ -20,6 +23,7 @@ body {
 
 #searchBtn {
   border-style: inset;
+  cursor: pointer;
 }
 
 #gifs-container {

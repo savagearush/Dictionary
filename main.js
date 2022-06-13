@@ -56,7 +56,6 @@ const getMeaning = async (query) => {
 };
 
 const renderResult = (data) => {
-  console.log(data);
   let { word, meanings, phonetics } = data;
   const { text, audio } = phonetics[phonetics.length - 1];
 
